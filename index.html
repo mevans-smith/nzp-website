@@ -530,7 +530,9 @@ footer{background:var(--slate-900);border-top:1px solid rgba(255,255,255,.06);pa
 
 @media (max-width: 768px) {
   body { overflow-x: hidden !important; }
-  .hero-screen-wrap { display: block !important; margin-top: 40px !important; width: 100% !important; max-width: 100% !important; overflow: hidden !important; border-radius: 12px !important; }
+  .hero-screen-wrap { display: block !important; margin-top: 40px !important; width: 100% !important; max-width: 100% !important; overflow: visible !important; border-radius: 12px !important; padding-top: 8px !important; }
+  .hero-screen-chrome { overflow: visible !important; white-space: normal !important; height: auto !important; min-height: 38px !important; flex-wrap: wrap !important; padding: 8px 14px !important; }
+  .chrome-title { font-size: 10px !important; text-align: left !important; }
   .screen-sidebar { display: none !important; }
   .screen-body { grid-template-columns: 1fr !important; }
   .hero { padding-top: 90px !important; padding-left: 16px !important; padding-right: 16px !important; }
