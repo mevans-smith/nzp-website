@@ -44,6 +44,11 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font);color:var(--slate-700);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
 
 /* ───────────────────────── NAV ───────────────────────── */
+
+.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1280px;margin:0 auto;padding:0 24px;height:72px;}
+.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;flex-shrink:0;}
+.nav-mobile-toggle span{display:block;width:24px;height:2px;background:#334155;border-radius:2px;}
+
 .nav{
   position:sticky;top:0;z-index:1000;
   background:rgba(255,255,255,0.95);
@@ -451,10 +456,93 @@ footer{background:var(--slate-900);border-top:1px solid rgba(255,255,255,.06);pa
   .footer-top{grid-template-columns:1fr}
   .screen-kpis{grid-template-columns:1fr 1fr}
 }
+
+
+/* ═══ MOBILE NAV FIX v3 ═══ */
+@media (max-width: 900px) {
+  .nav-mobile-toggle {
+    display: flex !important;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-shrink: 0;
+  }
+  .nav-mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #334155;
+    border-radius: 2px;
+  }
+  .nav-links {
+    display: none !important;
+    position: fixed !important;
+    top: 68px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    flex-direction: column !important;
+    padding: 20px !important;
+    gap: 8px !important;
+    z-index: 9999 !important;
+    box-shadow: 0 8px 24px rgba(15,23,42,.15) !important;
+  }
+  .nav-links.open {
+    display: flex !important;
+  }
+  .nav-links a, .nav-group, .nav-group-btn {
+    width: 100% !important;
+    font-size: 15px !important;
+  }
+  .nav-dropdown {
+    position: static !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: none !important;
+    padding-left: 16px !important;
+  }
+  .nav-group.open .nav-dropdown {
+    display: block !important;
+  }
+  .nav-cta {
+    text-align: center !important;
+    margin-top: 8px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body { overflow-x: hidden !important; }
+  .hero-screen-wrap { display: none !important; }
+  .screen-sidebar { display: none !important; }
+  .screen-body { grid-template-columns: 1fr !important; }
+  .hero { padding-top: 90px !important; padding-left: 16px !important; padding-right: 16px !important; }
+  h1, .hero-h1 { font-size: clamp(26px, 8vw, 36px) !important; }
+  .hero-sub { font-size: 15px !important; }
+  .hero-btns { flex-direction: column !important; gap: 10px !important; }
+  .hero-btns a, .hero-btns button { width: 100% !important; text-align: center !important; justify-content: center !important; display: block !important; }
+  .section { padding: 48px 16px !important; }
+  .phases-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .features-grid, .outputs-grid, .cred-grid { grid-template-columns: 1fr !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .trust-inner { flex-direction: column !important; gap: 12px !important; }
+  .footer-top { grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+  .footer-bottom { flex-direction: column !important; text-align: center !important; }
+  .cta-btns { flex-direction: column !important; align-items: stretch !important; }
+}
+
+@media (max-width: 480px) {
+  .phases-grid { grid-template-columns: 1fr !important; }
+  .footer-top { grid-template-columns: 1fr !important; }
+}
 </style>
   <!-- Calendly popup widget -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <script>
     var NZP_CALENDLY_URL = 'https://calendly.com/YOUR_CALENDLY_URL';
     function openCalendly(e){ e.preventDefault(); Calendly.initPopupWidget({url: NZP_CALENDLY_URL}); }
@@ -463,9 +551,10 @@ footer{background:var(--slate-900);border-top:1px solid rgba(255,255,255,.06);pa
 <body>
 
 <!-- ═══════════ NAV ═══════════ -->
-<nav class="nav">
+<nav class="nav" style="display:flex;align-items:center;justify-content:space-between;padding:0 32px;">
   <a href="#" class="nav-brand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDAgODAiIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iTmV0IFplcm8gUGxhdGZvcm1zIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LDgpIj4KICAgIDxjaXJjbGUgY3g9IjMzIiBjeT0iMTIiIHI9IjMuMiIgZmlsbD0iIzFkNmZiZiIvPjxjaXJjbGUgY3g9IjQzIiBjeT0iMTUiIHI9IjIuOCIgZmlsbD0iIzE4NzhiOCIvPgogICAgPGNpcmNsZSBjeD0iNTAiIGN5PSIyMyIgcj0iMi44IiBmaWxsPSIjMTI4MmE4Ii8+PGNpcmNsZSBjeD0iNTMiIGN5PSIzMyIgcj0iMy4yIiBmaWxsPSIjMGQ4Yzk4Ii8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjQzIiByPSIyLjgiIGZpbGw9IiMwYTk2ODAiLz48Y2lyY2xlIGN4PSI0MyIgY3k9IjUwIiByPSIyLjgiIGZpbGw9IiMxMmEwNjgiLz4KICAgIDxjaXJjbGUgY3g9IjMzIiBjeT0iNTMiIHI9IjMuMiIgZmlsbD0iIzE2YTM0YSIvPjxjaXJjbGUgY3g9IjIzIiBjeT0iNTAiIHI9IjIuOCIgZmlsbD0iIzE1YTI1NSIvPgogICAgPGNpcmNsZSBjeD0iMTYiIGN5PSI0MyIgcj0iMi44IiBmaWxsPSIjMGU5YzcwIi8+PGNpcmNsZSBjeD0iMTMiIGN5PSIzMyIgcj0iMy4yIiBmaWxsPSIjMGM5Njg4Ii8+CiAgICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjIzIiByPSIyLjgiIGZpbGw9IiMxMjhhYTAiLz48Y2lyY2xlIGN4PSIyMyIgY3k9IjE1IiByPSIyLjgiIGZpbGw9IiMxODgwYjQiLz4KICAgIDxjaXJjbGUgY3g9IjMzIiBjeT0iMjIiIHI9IjIuMiIgZmlsbD0iIzFkNmZiZiIgb3BhY2l0eT0iMC42Ii8+CiAgICA8Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSIyLjAiIGZpbGw9IiMwZjg4OTgiIG9wYWNpdHk9IjAuNiIvPgogICAgPGNpcmNsZSBjeD0iNDQiIGN5PSIzMyIgcj0iMi4yIiBmaWxsPSIjMGE5ODc4IiBvcGFjaXR5PSIwLjYiLz4KICAgIDxjaXJjbGUgY3g9IjQwIiBjeT0iNDEiIHI9IjIuMCIgZmlsbD0iIzE0YTI1YSIgb3BhY2l0eT0iMC42Ii8+CiAgICA8Y2lyY2xlIGN4PSIzMyIgY3k9IjQ0IiByPSIyLjIiIGZpbGw9IiMxNmEzNGEiIG9wYWNpdHk9IjAuNiIvPgogICAgPGNpcmNsZSBjeD0iMjYiIGN5PSI0MSIgcj0iMi4wIiBmaWxsPSIjMTJhMDYyIiBvcGFjaXR5PSIwLjYiLz4KICAgIDxjaXJjbGUgY3g9IjIyIiBjeT0iMzMiIHI9IjIuMiIgZmlsbD0iIzBjOTI4MiIgb3BhY2l0eT0iMC42Ii8+CiAgICA8Y2lyY2xlIGN4PSIyNiIgY3k9IjI1IiByPSIyLjAiIGZpbGw9IiMxNThhYWEiIG9wYWNpdHk9IjAuNiIvPgogICAgPGNpcmNsZSBjeD0iMzMiIGN5PSIzMyIgcj0iMi4wIiBmaWxsPSIjMWQ2ZmJmIiBvcGFjaXR5PSIwLjMiLz4KICA8L2c+CiAgPHRleHQgeD0iNzYiIHk9IjM0IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iIzBmMTcyYSI+TmV0IFplcm8gUGxhdGZvcm1zPC90ZXh0PgogIDxsaW5lIHgxPSI3NiIgeTE9IjQyIiB4Mj0iMzM0IiB5Mj0iNDIiIHN0cm9rZT0iI2NiZDVlMSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHRleHQgeD0iNzYiIHk9IjU0IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSI5IiBmb250LXdlaWdodD0iNzAwIiBsZXR0ZXItc3BhY2luZz0iMiIgZmlsbD0iIzQ3NTU2OSI+V0FTVEUgVE8gVkFMVUUgVEVDSE5PTE9HWTwvdGV4dD4KICA8dGV4dCB4PSI3NiIgeT0iNjUiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI1MDAiIGxldHRlci1zcGFjaW5nPSIxIiBmaWxsPSIjOTRhM2I4Ij5NT0RFTCBGSVJTVCDCtyBJTlZFU1QgTEFURVI8L3RleHQ+Cjwvc3ZnPg==" alt="Net Zero Platforms" style="height:72px;width:auto;display:block;"></a>
-  <div class="nav-links">
+  <button class="nav-mobile-toggle" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="nav-links">
     <!-- Platform dropdown -->
     <div class="nav-group">
       <button class="nav-group-btn">Platform <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -503,7 +592,7 @@ footer{background:var(--slate-900);border-top:1px solid rgba(255,255,255,.06);pa
       </div>
     </div>
 
-    <a href="#" onclick="openCalendly(event)" class="nav-cta">Book Demo →</a>
+    <a href="mailto:admin@netzeroplatforms.com?subject=Book%20a%20Demo&body=Hi%2C%20I%27d%20like%20to%20book%20a%20demo%20of%20the%20NZP%20platform.%0A%0AName%3A%0ACompany%3A%0ABest%20time%3A" class="nav-cta">Book Demo →</a>
     </div>
 </nav>
 
